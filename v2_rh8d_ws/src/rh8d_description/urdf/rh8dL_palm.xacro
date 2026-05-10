@@ -27,13 +27,12 @@
 
     <!-- Joint: forearm:1 -> palm_axis:1 -->
     <joint name="palm_axis:1--forearm:1" type="revolute">
-    <origin xyz="0 -0.165 -0.01275" rpy="0 0 0"/>
-    <axis xyz="0.0 0.0 -1.0"/>
-    <parent link="forearm:1"/>
-    <child link="palm_axis:1"/>
-    <dynamics damping="0.1"/>
-    <!-- <limit effort="0.5" lower="-0.785398163395" upper="0.785398163395" velocity="1.0"/> -->
-    <limit effort="0.5" lower="-1.57079632679" upper="1.57079632679" velocity="1.0"/>
+        <origin xyz="0 -0.165 -0.01275" rpy="0 0 0"/>
+        <axis xyz="0.0 0.0 -1.0"/>
+        <parent link="forearm:1"/>
+        <child link="palm_axis:1"/>
+        <dynamics damping="0.05" friction="0.005"/>
+        <limit effort="2.5" lower="-1.57079632679" upper="1.57079632679" velocity="5.0"/>
     </joint>
 
     <!-- Palm L:1 -->
@@ -62,12 +61,12 @@
 
     <!-- Joint: palm_axis:1 -> palmL:1 -->
     <joint name="palmL:1--palm_axis:1" type="revolute">
-    <origin xyz="-0.0265 0 0.0125" rpy="3.14159265359 0 3.14159265359"/>
-    <axis xyz="-1.0 0.0 0.0"/>
-    <parent link="palm_axis:1"/>
-    <child link="palmL:1"/>
-    <dynamics damping="0.1"/>
-    <limit effort="0.5" lower="-0.785398163395" upper="0.785398163395" velocity="1.0"/>
+        <origin xyz="-0.0265 0 0.0125" rpy="3.14159265359 0 3.14159265359"/>
+        <axis xyz="-1.0 0.0 0.0"/>
+        <parent link="palm_axis:1"/>
+        <child link="palmL:1"/>
+        <dynamics damping="0.05" friction="0.005"/>
+        <limit effort="2.5" lower="-0.785398163395" upper="0.785398163395" velocity="5.0"/>
     </joint>
 
 </robot>

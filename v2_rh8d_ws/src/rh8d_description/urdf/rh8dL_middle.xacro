@@ -27,12 +27,12 @@
 
     <!-- Joint: palmL:1 -> Middle_Proximal -->
     <joint name="Middle_Proximal--palmL:1" type="revolute">
-    <origin xyz="-0.0095654 -0.082818 0.00164059" rpy="-1.74598210711 -0.0859373918966 0.0151910468121"/>
-    <axis xyz="-1.0 0.0 0.0"/>
-    <parent link="palmL:1"/>
-    <child link="Middle_Proximal"/>
-    <dynamics damping="0.1"/>
-    <limit effort="0.5" lower="0" upper="1.57079632679" velocity="1.0"/>
+        <origin xyz="-0.0095654 -0.082818 0.00164059" rpy="-1.74598210711 -0.0859373918966 0.0151910468121"/>
+        <axis xyz="-1.0 0.0 0.0"/>
+        <parent link="palmL:1"/>
+        <child link="Middle_Proximal"/>
+        <dynamics damping="0.05" friction="0.005"/>
+        <limit effort="2.5" lower="0" upper="1.57079632679" velocity="5.0"/>
     </joint>
 
     <!-- Middle Middle -->
@@ -61,12 +61,17 @@
 
     <!-- Joint: Middle_Proximal -> Middle_Middle -->
     <joint name="Middle_Middle--Middle_Proximal" type="revolute">
-    <origin xyz="6.25377180185e-05 0 -0.0258750444163" rpy="0 0 0"/>
-    <axis xyz="-1.0 0.0 0.0"/>
-    <parent link="Middle_Proximal"/>
-    <child link="Middle_Middle"/>
-    <dynamics damping="0.1"/>
-    <limit effort="0.5" lower="0" upper="1.57079632679" velocity="1.0"/>
+        <origin xyz="6.25377180185e-05 0 -0.0258750444163" rpy="0 0 0"/>
+        <axis xyz="-1.0 0.0 0.0"/>
+        <parent link="Middle_Proximal"/>
+        <child link="Middle_Middle"/>
+        
+        <mimic joint="Middle_Proximal--palmL:1"
+                multiplier="0.9"
+                offset="0.0"/>
+
+        <dynamics damping="0.02" friction="0.0"/>
+        <limit effort="2.5" lower="0" upper="1.57079632679" velocity="5.0"/>
     </joint>
 
     <!-- Middle Distal -->
@@ -95,12 +100,17 @@
 
     <!-- Joint: Middle_Middle -> Middle_Distal -->
     <joint name="Middle_Distal--Middle_Middle" type="revolute">
-    <origin xyz="6.24372402321e-05 0 -0.0258750426798" rpy="0 0 0"/>
-    <axis xyz="-1.0 0.0 0.0"/>
-    <parent link="Middle_Middle"/>
-    <child link="Middle_Distal"/>
-    <dynamics damping="0.1"/>
-    <limit effort="0.5" lower="0" upper="1.57079632679" velocity="1.0"/>
+        <origin xyz="6.24372402321e-05 0 -0.0258750426798" rpy="0 0 0"/>
+        <axis xyz="-1.0 0.0 0.0"/>
+        <parent link="Middle_Middle"/>
+        <child link="Middle_Distal"/>
+                
+        <mimic joint="Middle_Middle--Middle_Proximal"
+            multiplier="0.9"
+            offset="0.0"/>
+
+        <dynamics damping="0.02" friction="0.0"/>
+        <limit effort="2.5" lower="0" upper="1.57079632679" velocity="5.0"/>
     </joint>
 
 </robot>

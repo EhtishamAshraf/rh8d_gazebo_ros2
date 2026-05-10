@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
+    <xacro:arg name="robot_controllers" default=""/>
+    <xacro:property name="robot_controllers" value="$(arg robot_controllers)"/>
+
     <!-- color definition -->
     <xacro:property name="silver" value="0.74902 0.74902 0.74902 1.0"/>
 
@@ -56,59 +59,57 @@
 
     <!-- PalmL:1 Link -->
     <xacro:gz_material link="palmL:1"/>
-    <xacro:gz_contact link="palmL:1" mu="1.2" kp="5e4" kd="80"/>
+    <xacro:gz_contact link="palmL:1" mu="1.5" kp="5e4" kd="80"/>
 
     <!-- Thumb Axis Link -->
     <xacro:gz_material link="Thumb_axis"/>
-    <xacro:gz_contact link="Thumb_axis" mu="1.2" kp="5e4" kd="80"/>
+    <xacro:gz_contact link="Thumb_axis" mu="1.5" kp="5e3" kd="30"/>
 
     <!-- Thumb Links -->
     <xacro:gz_material link="Thumb_Proximal"/>
-    <xacro:gz_contact link="Thumb_Proximal" mu="1.2" kp="5e4" kd="80"/>
+    <xacro:gz_contact link="Thumb_Proximal" mu="2.0" kp="5e3" kd="30" selfCollide="false"/>
     <xacro:gz_material link="Thumb_Methacarpal"/>
-    <xacro:gz_contact link="Thumb_Methacarpal" mu="1.2" kp="5e4" kd="80"/>
+    <xacro:gz_contact link="Thumb_Methacarpal" mu="2.0" kp="5e3" kd="30" selfCollide="false"/>
     <xacro:gz_material link="Thumb_Distal"/>
-    <xacro:gz_contact link="Thumb_Distal" mu="1.2" kp="5e4" kd="80"/>
+    <xacro:gz_contact link="Thumb_Distal" mu="2.0" kp="5e3" kd="30" selfCollide="false"/>
 
     <!-- Index Links -->
     <xacro:gz_material link="Index_Proximal"/>
-    <xacro:gz_contact link="Index_Proximal" mu="1.2" kp="5e4" kd="80"/>
+    <xacro:gz_contact link="Index_Proximal" mu="2.0" kp="5e3" kd="30" selfCollide="false"/>
     <xacro:gz_material link="Index_Middle"/>
-    <xacro:gz_contact link="Index_Middle" mu="1.2" kp="5e4" kd="80"/>
+    <xacro:gz_contact link="Index_Middle" mu="2.0" kp="5e3" kd="30" selfCollide="false"/>
     <xacro:gz_material link="Index_Distal"/>
-    <xacro:gz_contact link="Index_Distal" mu="1.2" kp="5e4" kd="80"/>
-
+    <xacro:gz_contact link="Index_Distal" mu="2.0" kp="5e3" kd="30" selfCollide="false"/>
     <!-- Middle Links -->
     <xacro:gz_material link="Middle_Proximal"/>
-    <xacro:gz_contact link="Middle_Proximal" mu="1.2" kp="5e4" kd="80"/>
+    <xacro:gz_contact link="Middle_Proximal" mu="2.0" kp="5e3" kd="30" selfCollide="false"/>
     <xacro:gz_material link="Middle_Middle"/>
-    <xacro:gz_contact link="Middle_Middle" mu="1.2" kp="5e4" kd="80"/>
+    <xacro:gz_contact link="Middle_Middle" mu="2.0" kp="5e3" kd="30" selfCollide="false"/>
     <xacro:gz_material link="Middle_Distal"/>
-    <xacro:gz_contact link="Middle_Distal" mu="1.2" kp="5e4" kd="80"/>
+    <xacro:gz_contact link="Middle_Distal" mu="2.0" kp="5e3" kd="30" selfCollide="false"/>
 
     <!-- Ring Links -->
     <xacro:gz_material link="Ring_Proximal"/>
-    <xacro:gz_contact link="Ring_Proximal" mu="1.2" kp="5e4" kd="80"/>
+    <xacro:gz_contact link="Ring_Proximal" mu="2.0" kp="5e3" kd="30" selfCollide="false"/>
     <xacro:gz_material link="Ring_Middle"/>
-    <xacro:gz_contact link="Ring_Middle" mu="1.2" kp="5e4" kd="80"/>
+    <xacro:gz_contact link="Ring_Middle" mu="2.0" kp="5e3" kd="30" selfCollide="false"/>
     <xacro:gz_material link="Ring_Distal"/>
-    <xacro:gz_contact link="Ring_Distal" mu="1.2" kp="5e4" kd="80"/>
+    <xacro:gz_contact link="Ring_Distal" mu="2.0" kp="5e3" kd="30" selfCollide="false"/>
 
     <!-- Small Links -->
     <xacro:gz_material link="Small_Proximal"/>
-    <xacro:gz_contact link="Small_Proximal" mu="1.2" kp="5e4" kd="80"/>
+    <xacro:gz_contact link="Small_Proximal" mu="2.0" kp="5e3" kd="30" selfCollide="false"/>
     <xacro:gz_material link="Small_Middle"/>
-    <xacro:gz_contact link="Small_Middle" mu="1.2" kp="5e4" kd="80"/>
+    <xacro:gz_contact link="Small_Middle" mu="2.0" kp="5e3" kd="30" selfCollide="false"/>
     <xacro:gz_material link="Small_Distal"/>
-    <xacro:gz_contact link="Small_Distal" mu="1.2" kp="5e4" kd="80"/>
-
+    <xacro:gz_contact link="Small_Distal" mu="2.0" kp="5e3" kd="30" selfCollide="false"/>
 
     <!-- Gazebo ROS2 Control Plugin -->
     <gazebo>
         <plugin filename="libgz_ros2_control-system.so" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
             <robot_param>robot_description</robot_param>
             <robot_param_node>robot_state_publisher</robot_param_node>
-        <parameters>$(find rh8d_control)/config/rh8dL_controllers.yaml</parameters>
+            <parameters>${robot_controllers}</parameters>
         </plugin>
     </gazebo>
 

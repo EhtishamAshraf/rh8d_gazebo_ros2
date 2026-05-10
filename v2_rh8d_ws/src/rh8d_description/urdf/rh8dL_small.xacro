@@ -27,12 +27,17 @@
 
     <!-- Joint: palmL:1 -> Small_Proximal -->
     <joint name="Small_Proximal--palmL:1" type="revolute">
-    <origin xyz="-0.0591609 -0.07417 0.00246184" rpy="-1.77486172903 0.138702392285 -0.20406540224"/>
-    <axis xyz="-1.0 0.0 0.0"/>
-    <parent link="palmL:1"/>
-    <child link="Small_Proximal"/>
-    <dynamics damping="0.1"/>
-    <limit effort="0.5" lower="0" upper="1.57079632679" velocity="1.0"/>
+        <origin xyz="-0.0591609 -0.07417 0.00246184" rpy="-1.77486172903 0.138702392285 -0.20406540224"/>
+        <axis xyz="-1.0 0.0 0.0"/>
+        <parent link="palmL:1"/>
+        <child link="Small_Proximal"/>
+            
+        <mimic joint="Ring_Proximal--palmL:1"
+                    multiplier="1.0"
+                    offset="0.0"/>
+
+        <dynamics damping="0.002" friction="0.0"/>
+        <limit effort="0.5" lower="0" upper="1.57079632679" velocity="10.0"/>
     </joint>
 
     <!-- Small Middle -->
@@ -61,12 +66,17 @@
 
     <!-- Joint: Small_Proximal -> Small_Middle -->
     <joint name="Small_Middle--Small_Proximal" type="revolute">
-    <origin xyz="6.25112164948e-05 0 -0.0258751651529" rpy="0 0 0"/>
-    <axis xyz="-1.0 0.0 0.0"/>
-    <parent link="Small_Proximal"/>
-    <child link="Small_Middle"/>
-    <dynamics damping="0.1"/>
-    <limit effort="0.5" lower="0" upper="1.57079632679" velocity="1.0"/>
+        <origin xyz="6.25112164948e-05 0 -0.0258751651529" rpy="0 0 0"/>
+        <axis xyz="-1.0 0.0 0.0"/>
+        <parent link="Small_Proximal"/>
+        <child link="Small_Middle"/>
+            
+        <mimic joint="Small_Proximal--palmL:1"
+                    multiplier="0.9"
+                    offset="0.0"/>
+
+        <dynamics damping="0.002" friction="0.0"/>
+        <limit effort="0.5" lower="0" upper="1.57079632679" velocity="10.0"/>
     </joint>
 
     <!-- Small Distal -->
@@ -99,8 +109,13 @@
     <axis xyz="-1.0 0.0 0.0"/>
     <parent link="Small_Middle"/>
     <child link="Small_Distal"/>
-    <dynamics damping="0.1"/>
-    <limit effort="0.5" lower="0" upper="1.57079632679" velocity="1.0"/>
+        
+    <mimic joint="Small_Middle--Small_Proximal"
+                multiplier="0.9"
+                offset="0.0"/>
+
+    <dynamics damping="0.002" friction="0.0"/>
+    <limit effort="0.5" lower="0" upper="1.57079632679" velocity="10.0"/>
     </joint>
 
 </robot>

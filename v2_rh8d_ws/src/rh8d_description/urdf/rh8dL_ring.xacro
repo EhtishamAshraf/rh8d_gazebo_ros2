@@ -27,12 +27,12 @@
 
     <!-- Joint: palmL:1 -> Ring_Proximal -->
     <joint name="Ring_Proximal--palmL:1" type="revolute">
-    <origin xyz="-0.03444198 -0.082386 0.00076556" rpy="-1.75269165877 0.0686359653419 -0.101002048759"/>
-    <axis xyz="-1.0 0.0 0.0"/>
-    <parent link="palmL:1"/>
-    <child link="Ring_Proximal"/>
-    <dynamics damping="0.1"/>
-    <limit effort="0.5" lower="0" upper="1.57079632679" velocity="1.0"/>
+        <origin xyz="-0.03444198 -0.082386 0.00076556" rpy="-1.75269165877 0.0686359653419 -0.101002048759"/>
+        <axis xyz="-1.0 0.0 0.0"/>
+        <parent link="palmL:1"/>
+        <child link="Ring_Proximal"/>
+        <dynamics damping="0.05" friction="0.005"/>
+        <limit effort="0.5" lower="0" upper="1.57079632679" velocity="10.0"/>
     </joint>
 
     <!-- Ring Middle -->
@@ -65,8 +65,13 @@
     <axis xyz="-1.0 0.0 0.0"/>
     <parent link="Ring_Proximal"/>
     <child link="Ring_Middle"/>
-    <dynamics damping="0.1"/>
-    <limit effort="0.5" lower="0" upper="1.57079632679" velocity="1.0"/>
+    
+    <mimic joint="Ring_Proximal--palmL:1"
+                multiplier="0.9"
+                offset="0.0"/>
+
+    <dynamics damping="0.02" friction="0.0"/>
+    <limit effort="0.5" lower="0" upper="1.57079632679" velocity="10.0"/>
     </joint>
 
     <!-- Ring Distal -->
@@ -95,12 +100,17 @@
 
     <!-- Joint: Ring_Middle -> Ring_Distal -->
     <joint name="Ring_Distal--Ring_Middle" type="revolute">
-    <origin xyz="6.25316406279e-05 1.7655252639e-07 -0.0258758931888" rpy="0 0 0"/>
-    <axis xyz="-1.0 0.0 0.0"/>
-    <parent link="Ring_Middle"/>
-    <child link="Ring_Distal"/>
-    <dynamics damping="0.1"/>
-    <limit effort="0.5" lower="0" upper="1.57079632679" velocity="1.0"/>
+        <origin xyz="6.25316406279e-05 1.7655252639e-07 -0.0258758931888" rpy="0 0 0"/>
+        <axis xyz="-1.0 0.0 0.0"/>
+        <parent link="Ring_Middle"/>
+        <child link="Ring_Distal"/>
+            
+        <mimic joint="Ring_Middle--Ring_Proximal"
+                    multiplier="0.9"
+                    offset="0.0"/>
+
+        <dynamics damping="0.02" friction="0.0"/>
+        <limit effort="0.5" lower="0" upper="1.57079632679" velocity="10.0"/>
     </joint>
 
 </robot>

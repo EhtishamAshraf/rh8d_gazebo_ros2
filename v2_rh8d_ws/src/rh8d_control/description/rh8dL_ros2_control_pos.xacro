@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="rh8d_gz_ros2_control" params="">
+    <ros2_control name="GazeboSimSystem" type="system">
+
+      <hardware>
+        <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+      </hardware>
+
+      <!-- Wrist / palm chain each joint has a seperate motor-->
+      <joint name="forearm:1--base:1">
+        <command_interface name="position"/>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+      </joint>
+      <joint name="palm_axis:1--forearm:1">
+        <command_interface name="position"/>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+      </joint>
+      <joint name="palmL:1--palm_axis:1">
+        <command_interface name="position"/>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+      </joint>
+
+      <!-- Thumb share TWO motors -->
+      <!-- Actuated joint -->
+      <joint name="Thumb_axis--palmL:1">
+        <command_interface name="position"/>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+      </joint>
+      <joint name="Thumb_Methacarpal--Thumb_axis">
+        <command_interface name="position"/>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+      </joint>
+      <!-- Thumb passive joints -->
+      <joint name="Thumb_Proximal--Thumb_Methacarpal">
+        <param name="mimic">Thumb_Methacarpal--Thumb_axis</param>
+        <param name="multiplier">0.9</param>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+      </joint>
+      <joint name="Thumb_Distal--Thumb_Proximal">
+        <param name="mimic">Thumb_Proximal--Thumb_Methacarpal</param>
+        <param name="multiplier">0.9</param>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+      </joint>
+
+
+      <!-- Index share ONE motor -->
+      <!-- Actuated joint -->
+      <joint name="Index_Proximal--palmL:1">
+        <command_interface name="position"/>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+      </joint>
+      <!-- Index passive joints -->
+      <joint name="Index_Middle--Index_Proximal">
+        <param name="mimic">Index_Proximal--palmL:1</param>
+        <param name="multiplier">0.9</param>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+      </joint>
+      <joint name="Index_Distal--Index_Middle">
+        <param name="mimic">Index_Middle--Index_Proximal</param>
+        <param name="multiplier">0.9</param>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+      </joint>
+
+
+      <!-- Middle share ONE motor -->
+      <!-- Actuated joint -->
+      <joint name="Middle_Proximal--palmL:1">
+        <command_interface name="position"/>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+      </joint>
+      <!-- Middle passive joints -->
+      <joint name="Middle_Middle--Middle_Proximal">
+        <param name="mimic">Middle_Proximal--palmL:1</param>
+        <param name="multiplier">0.9</param>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+      </joint>
+      <joint name="Middle_Distal--Middle_Middle">
+        <param name="mimic">Middle_Middle--Middle_Proximal</param>
+        <param name="multiplier">0.9</param>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+      </joint>
+
+
+      <!-- Ring + Small share ONE motor -->
+      <!-- Actuated joint -->
+      <joint name="Ring_Proximal--palmL:1">
+        <command_interface name="position"/>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+      </joint>
+      <!-- Ring passive joints -->
+      <joint name="Ring_Middle--Ring_Proximal">
+        <param name="mimic">Ring_Proximal--palmL:1</param>
+        <param name="multiplier">0.9</param>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+      </joint>
+      <joint name="Ring_Distal--Ring_Middle">
+        <param name="mimic">Ring_Middle--Ring_Proximal</param>
+        <param name="multiplier">0.9</param>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+      </joint>
+
+
+      <!-- Small passive joints -->
+      <joint name="Small_Proximal--palmL:1">
+          <param name="mimic">Ring_Proximal--palmL:1</param>
+          <param name="multiplier">1.0</param>
+          <state_interface name="position"/>
+          <state_interface name="velocity"/>
+      </joint>
+      <joint name="Small_Middle--Small_Proximal">
+          <param name="mimic">Small_Proximal--palmL:1</param>
+          <param name="multiplier">0.9</param> 
+          <state_interface name="position"/>
+          <state_interface name="velocity"/>
+      </joint>
+      <joint name="Small_Distal--Small_Middle">
+          <param name="mimic">Small_Middle--Small_Proximal</param>
+          <param name="multiplier">0.9</param> 
+          <state_interface name="position"/>
+          <state_interface name="velocity"/>
+      </joint>
+
+
+    </ros2_control>
+  </xacro:macro>
+
+  <xacro:rh8d_gz_ros2_control/>
+
+</robot>

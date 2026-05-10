@@ -9,32 +9,39 @@ from launch_ros.substitutions import FindPackageShare
 
 from ament_index_python.packages import get_package_share_directory
 import os
+import xacro
 
 
 def generate_launch_description():
     # Launch Arguments
-    use_sim_time = LaunchConfiguration('use_sim_time', default=True)
+    use_sim_time = LaunchConfiguration('use_sim_time', default='true')
     gz_args = LaunchConfiguration('gz_args', default='')
 
-    # Controller and URDF file paths
+    # Controller and XACRO file paths
     control_pkg_path = get_package_share_directory('rh8d_control')
-    robot_controllers = os.path.join(control_pkg_path, 'config', 'rh8dL_controllers.yaml')
+    robot_controllers = os.path.join(control_pkg_path, 'config', 'rh8dL_controllers_pos.yaml')
 
     desc_pkg_path = get_package_share_directory('rh8d_description')
-    urdf_path = os.path.join(desc_pkg_path, 'urdf', 'rh8dL_main.urdf')
-    with open(urdf_path, 'r') as urdf_file:
-        robot_description_content = urdf_file.read()
+    xacro_path = os.path.join(desc_pkg_path, 'urdf', 'rh8dL_main_pos.xacro')
+    
+    doc = xacro.process_file(
+        xacro_path,
+        mappings={'robot_controllers': robot_controllers}
+    )
+    robot_description_content = doc.toxml()
 
     # Passing the URDF content directly as the 'robot_description' parameter
     robot_description = {
         'robot_description': ParameterValue(robot_description_content, value_type=str)
     }
 
+    # Robot State Publisher Node
     node_robot_state_publisher = Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
         output='screen',
-        parameters=[robot_description],
+        parameters=[robot_description, {'use_sim_time': use_sim_time}],
+
     )
 
     # Spawn robot into Gazebo
@@ -55,6 +62,7 @@ def generate_launch_description():
         executable='spawner',
         output='screen',
         arguments=['joint_state_broadcaster'],
+        parameters=[{'use_sim_time': use_sim_time}],
     )
 
     joint_trajectory_controller_spawner = Node(
@@ -66,6 +74,7 @@ def generate_launch_description():
             '--param-file',
             robot_controllers
         ],
+        parameters=[{'use_sim_time': use_sim_time}],
     )
 
     # Bridge node for ROS-Gazebo communication
@@ -73,19 +82,29 @@ def generate_launch_description():
         package='ros_gz_bridge',
         executable='parameter_bridge',
         arguments=['/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock'],
-        output='screen'
+        output='screen',
+        parameters=[{'use_sim_time': use_sim_time}],
     )
 
     gz_sim = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            [PathJoinSubstitution([FindPackageShare('ros_gz_sim'),
-                                   'launch',
-                                   'gz_sim.launch.py'])]
-        ),
-        launch_arguments=[('gz_args', [gz_args, ' -r -v 1 empty.sdf'])],
+        PathJoinSubstitution([
+            FindPackageShare('ros_gz_sim'),
+            'launch',
+            'gz_sim.launch.py'
+        ])
+    ),
+    launch_arguments={
+        'gz_args': [gz_args, ' -r -v 1 /home/ehtisham/Desktop/Robotics_uclv/03_PROJECTS/P1_rh8d_sim/1-Gazebo/v2_rh8d_ws/src/rh8d_description/worlds/table_rubik.sdf']
+    }.items(),
+
     )
 
     return LaunchDescription([
+        
+        DeclareLaunchArgument('use_sim_time', default_value='true'),
+        DeclareLaunchArgument('gz_args', default_value=''),
+
         gz_sim,
         bridge,
         node_robot_state_publisher,
@@ -102,11 +121,5 @@ def generate_launch_description():
                 target_action=joint_state_broadcaster_spawner,
                 on_exit=[joint_trajectory_controller_spawner],
             )
-        ),
-
-        DeclareLaunchArgument(
-            'use_sim_time',
-            default_value=use_sim_time,
-            description='If true, use simulated clock'
         ),
     ])

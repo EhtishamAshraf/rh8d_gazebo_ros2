@@ -30,6 +30,9 @@ setup(
     },
     entry_points={
         'console_scripts': [
+            'rh8dL_gestures = rh8d_control.rh8dL_gestures:main', 
+            'rh8dL_object_pick = rh8d_control.rh8dL_object_pick:main',
+            'rh8dL_object_pick_pos = rh8d_control.rh8dL_object_pick_pos:main',
         ],
     },
 )

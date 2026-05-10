@@ -27,12 +27,12 @@
 
     <!--Joint: palmL:1 -> Index_Proximal -->
     <joint name="Index_Proximal--palmL:1" type="revolute">
-    <origin xyz="0.015314 -0.080697 0.00509984" rpy="-1.76215945719 -0.155855069444 0.117563149369"/>
-    <axis xyz="-1.0 0.0 0.0"/>
-    <parent link="palmL:1"/>
-    <child link="Index_Proximal"/>
-    <dynamics damping="0.1"/>
-    <limit effort="0.5" lower="0" upper="1.57079632679" velocity="1.0"/>
+        <origin xyz="0.015314 -0.080697 0.00509984" rpy="-1.76215945719 -0.155855069444 0.117563149369"/>
+        <axis xyz="-1.0 0.0 0.0"/>
+        <parent link="palmL:1"/>
+        <child link="Index_Proximal"/>
+        <dynamics damping="0.05" friction="0.005"/>
+        <limit effort="2.5" lower="0" upper="1.57079632679" velocity="5.0"/>
     </joint>
 
     <!-- Index Middle -->
@@ -61,13 +61,19 @@
 
     <!--Joint: Index_Proximal -> Index_Middle -->
     <joint name="Index_Middle--Index_Proximal" type="revolute">
-    <origin xyz="6.2440782901e-05 0 -0.025875292969" rpy="0 0 0"/>
-    <axis xyz="-1.0 0.0 0.0"/>
-    <parent link="Index_Proximal"/>
-    <child link="Index_Middle"/>
-    <dynamics damping="0.1"/>
-    <limit effort="0.5" lower="0" upper="1.57079632679" velocity="1.0"/>
+        <origin xyz="6.2440782901e-05 0 -0.025875292969" rpy="0 0 0"/>
+        <axis xyz="-1.0 0.0 0.0"/>
+        <parent link="Index_Proximal"/>
+        <child link="Index_Middle"/>
+
+        <mimic joint="Index_Proximal--palmL:1"
+                multiplier="0.9"
+                offset="0.0"/>
+
+        <dynamics damping="0.02" friction="0.0"/>
+        <limit effort="2.5" lower="0" upper="1.57079632679" velocity="5.0"/>
     </joint>
+
 
     <!-- Index Distal -->
     <link name="Index_Distal">
@@ -95,12 +101,17 @@
 
     <!--Joint: Index_Middle -> Index_Distal -->
     <joint name="Index_Distal--Index_Middle" type="revolute">
-    <origin xyz="6.2578385226e-05 -2.1183475668e-07 -0.0258743408417" rpy="0 0 0"/>
-    <axis xyz="-1.0 0.0 0.0"/>
-    <parent link="Index_Middle"/>
-    <child link="Index_Distal"/>
-    <dynamics damping="0.1"/>
-    <limit effort="0.5" lower="0" upper="1.57079632679" velocity="1.0"/>
+        <origin xyz="6.2578385226e-05 -2.1183475668e-07 -0.0258743408417" rpy="0 0 0"/>
+        <axis xyz="-1.0 0.0 0.0"/>
+        <parent link="Index_Middle"/>
+        <child link="Index_Distal"/>
+
+        <mimic joint="Index_Middle--Index_Proximal"
+                multiplier="0.9"
+                offset="0.0"/>
+
+        <dynamics damping="0.02" friction="0.0"/>
+        <limit effort="2.5" lower="0" upper="1.57079632679" velocity="5.0"/>
     </joint>
 
 </robot>

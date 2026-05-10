@@ -1,14 +1,19 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  
+  <!-- World -->
+  <link name="world" />
 
-  <!-- Base link -->
-  <link name="base_link" />
-
-  <!-- Fixed joint: base_link -> base:1 --> 
-  <joint name="base:1--base_link" type="fixed">
-    <parent link="base_link"/>
+  <!-- Fixed joint: world -> base:1 --> 
+  <joint name="base:1--world" type="fixed">
+    <parent link="world"/>
     <child link="base:1"/>
-    <origin xyz="0 0 0" rpy="0 0 0"/>
+    
+    <!-- For picking up Coke (side pick) -->
+    <!-- <origin xyz="0.35 0.6 1.047" rpy="0 -1.57079632679 3.14159265359"/>   -->
+
+    <!-- For picking up Ball (top pick)-->
+    <origin xyz="0.58 -0.13 1.045" rpy="-1.57079632679 0 0"/> 
   </joint>
 
   <!-- Base:1 link -->
@@ -65,8 +70,8 @@
     <axis xyz="0.0 -1.0 0.0"/>
     <parent link="base:1"/>
     <child link="forearm:1"/>
-    <dynamics damping="0.1"/>
-    <limit effort="0.5" lower="-1.57079632679" upper="1.57079632679" velocity="1.0"/>
+    <dynamics damping="0.05" friction="0.005"/>
+    <limit effort="2.5" lower="-1.57079632679" upper="1.57079632679" velocity="5.0"/>
   </joint>
 
 </robot>
