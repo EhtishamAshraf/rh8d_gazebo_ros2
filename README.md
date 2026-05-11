@@ -23,7 +23,7 @@ This project simulates the **RH8D tendon-driven robotic hand** in Gazebo using R
 
 The real RH8D hand is tendon-driven. However, Gazebo Sim does not support native tendon actuation in the same way as MuJoCo. Therefore, tendon-like behavior is approximated using **mimic joints** for the underactuated version.
 
-The project contains two simulation configurations:
+The project contains two simulation configurations, each available in a separate branch:
 
 - **Underactuated RH8D hand**
   - Tendon behavior is approximated using mimic joints.
