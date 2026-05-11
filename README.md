@@ -13,7 +13,7 @@ Tested on:
 - ROS 2 Humble
 - Gazebo Sim 6.17.1 / Ignition Gazebo Fortress
 
-![Coke Can Simulation](assests/4-Coke_Can_3.png)
+![Coke Can Simulation](https://github.com/EhtishamAshraf/rh8d_gazebo_ros2/blob/8f57d3f1642807379a44ccdaa9483567b4fa4144/assests/1-Images/4-Coke_Can_3.png)
 
 ---
 
@@ -34,7 +34,7 @@ The project contains two simulation configurations:
   - No custom control code was written for this version.
   - Joint motion can be commanded using `rqt_joint_trajectory_controller`.
 
-[![Demo Video](assests/4-Coke_Can_4.png)](https://youtu.be/vms1Rzq0_Kk)
+[![Demo Video](https://github.com/EhtishamAshraf/rh8d_gazebo_ros2/blob/8f57d3f1642807379a44ccdaa9483567b4fa4144/assests/1-Images/4-Coke_Can_4.png)](https://youtu.be/vms1Rzq0_Kk)
 
 ---
 
@@ -90,13 +90,13 @@ ros2 launch rh8d_control rh8dL_ros2_control_pos.launch.py
 ```bash
 ros2 run rh8d_control rh8dL_object_pick_pos
 ```
-[![Demo Video](assests/5-Ball_1.png)](https://youtu.be/uuPhGCBPrJ4)
+[![Demo Video](https://github.com/EhtishamAshraf/rh8d_gazebo_ros2/blob/8f57d3f1642807379a44ccdaa9483567b4fa4144/assests/1-Images/5-Ball_1.png)](https://youtu.be/uuPhGCBPrJ4)
 
 Hand Gesture Controller:
 ```bash
 ros2 run rh8d_control rh8dL_gestures
 ```
-[![Demo Video](assests/2-VictorySign.png)](https://youtu.be/kn62hzurok4)
+[![Demo Video](https://github.com/EhtishamAshraf/rh8d_gazebo_ros2/blob/8f57d3f1642807379a44ccdaa9483567b4fa4144/assests/1-Images/2-VictorySign.png)](https://youtu.be/kn62hzurok4)
 
 ### Fully Actuated RH8D Simulation
 
