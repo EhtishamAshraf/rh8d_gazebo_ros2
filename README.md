@@ -14,6 +14,7 @@ Tested on:
 - Gazebo Sim 6.17.1 / Ignition Gazebo Fortress
 
 ![Coke Can Simulation](assests/4-Coke_Can_3.png)
+
 ---
 
 ## Project Overview
@@ -34,6 +35,7 @@ The project contains two simulation configurations:
   - Joint motion can be commanded using `rqt_joint_trajectory_controller`.
 
 [![Demo Video](assests/4-Coke_Can_4.png)](https://youtu.be/vms1Rzq0_Kk)
+
 ---
 
 ## System Requirements
@@ -55,6 +57,7 @@ sudo apt install ros-humble-gz-ros2-control
 This installs the `libgz_ros2_control` package, which provides the Gazebo Sim plugin required to connect simulated Gazebo joints with the ROS 2 `ros2_control` controller framework.
 
 Reference: [gz_ros2_control GitHub](https://github.com/ros-controls/gz_ros2_control)
+
 ---
 
 ## Build and Launch Instructions
@@ -183,6 +186,7 @@ pose {
 ```
 
 After spawning the required models, save the Gazebo world so the objects remain available in future launches.
+
 ---
 
 ## Common Issues and Fixes
