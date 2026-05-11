@@ -161,7 +161,6 @@ ros2 topic pub --once /palm_trajectory_controller/joint_trajectory trajectory_ms
 ```bash
 ros2 topic pub --once /finger_effort_controller/commands std_msgs/msg/Float64MultiArray "data: [0.1, 0.1, 0.1, 0.1]"
 ```
-
 ---
 
 ## Downloading Gazebo Models and Spawning Objects into the Gazebo World
@@ -184,7 +183,6 @@ pose {
 ```
 
 After spawning the required models, save the Gazebo world so the objects remain available in future launches.
-
 ---
 
 ## Common Issues and Fixes
@@ -203,7 +201,6 @@ colcon build
 source install/setup.bash
 export GZ_SIM_RESOURCE_PATH=$GZ_SIM_RESOURCE_PATH:~/your_workspace/install/your_package/share
 ```
-
 ---
 
 ### Controllers are not active
@@ -220,7 +217,6 @@ If controllers are not active, check:
 - Joint names in the URDF.
 - Whether `libgz_ros2_control-system.so` is loaded correctly.
 - Whether the controller manager started successfully.
-
 ---
 
 ### Gazebo plugin does not load
@@ -237,39 +233,4 @@ Check that the URDF contains:
 <plugin filename="libgz_ros2_control-system.so" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
 </plugin>
 ```
-
----
-
-
-
-```markdown
-![RH8D Hand in Gazebo](assets/images/rh8d_gazebo.png)
-```
-
-Example video link usage:
-
-```markdown
-[Underactuated RH8D Demo](assets/videos/underactuated_demo.mp4)
-```
-
----
-
-## Example Results
-
-### RH8D Hand in Gazebo
-
-![RH8D Hand in Gazebo](assets/images/rh8d_gazebo.png)
-
----
-
-### Underactuated RH8D Demo
-
-[Watch underactuated demo](assets/videos/underactuated_demo.mp4)
-
----
-
-### Fully Actuated RH8D Demo
-
-[Watch fully actuated demo](assets/videos/fully_actuated_demo.mp4)
-
 ---
